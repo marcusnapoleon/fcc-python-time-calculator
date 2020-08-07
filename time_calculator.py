@@ -17,7 +17,7 @@ def add_time(start, duration):
 	#print('hrs length : ', len(start_hour))
 	start_mins = start_splitter[1]
 	#print('mins : ', start_mins)
-	start_tod_select = split_start_time[1]
+	tod_select = split_start_time[1]
 	#print('AM/PM : ', start_tod_select)
 	#print()
 	
@@ -41,6 +41,53 @@ def add_time(start, duration):
 	dur_min_side = split_dur[1]
 	#print('durs mins : ', dur_min_side)
 
+	
+
 	print()
-	print(f' START TIME \n HOURS     : {start_hour}\n COLONpos  : {start_time_only[1]}\n MINUTES   : {start_mins}\n AM/PM     : {start_tod_select}\n')
-	print(f' DURATION TIME \n HOURS     : {dur_hr_side}\n COLONpos  : {duration_time_only[1]}\n MINUTES   : {dur_min_side}\n')
+	print(f' START TIME \n HOURS     : {start_hour}\n COLON     : :\n MINUTES   : {start_mins}\n AM/PM     : {tod_select}\n')
+	print(f' DURATION TIME \n HOURS     : {dur_hr_side}\n COLON     : :\n MINUTES   : {dur_min_side}\n')
+
+
+	new_total_hour = int(start_hour) + int(dur_hr_side)
+	print(' NEW TOTAL HOURS : ', new_total_hour)
+	new_total_mins = int(start_mins) + int(dur_min_side)
+	print(' NEW TOTAL MINS : ', new_total_mins)
+	print(' TIME OF DAY : ', tod_select)
+
+
+	t_o_d = ''
+	new_time = ''
+	new_time_am = ''
+	new_time_pm = ''
+
+
+	if tod_select == 'AM':
+		print('\n ==> WE ARE WORKING ON AM TIME\n')
+		print('AM TOTAL MINS : ', new_total_mins)
+		print('AM TOTAL HOUR : ', new_total_hour)
+
+
+		if new_total_mins > 60:
+			print('\n ==> MIN > 60MIN CHECK\n')
+			print('MIN > 60 : ', new_total_mins)
+			new_total_mins -= 60
+			print('MIN > 60 - 60 : ', new_total_mins)
+			print('NEW TOTAL HOUR : ', new_total_hour)
+			new_total_hour += 1
+			print('NEW TOTAL HOUR + 1 : ', new_total_hour)
+
+
+			if new_total_hour > 12:
+				print('\n ==> HOUR > 12HR CHECK\n')
+				print('HR > 12 : ', new_total_hour)
+				new_total_hour -= 12
+				print('HR > 12 - 12 :', new_total_hour)
+				t_o_d = 'PM'
+				print('NEW TOTAL MINS : ', new_total_mins)
+				print('TIME OF DAY : ', t_o_d)
+				new_time_pm = str(new_total_hour) + ':' + str(new_total_mins) + ' ' + t_o_d
+				print('NEW TIME PM : ', new_time_pm)
+
+	return new_time
+
+print(add_time("10:48 AM", "4:35"))
